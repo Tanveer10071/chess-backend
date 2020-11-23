@@ -36,7 +36,7 @@ io.on('connection', function(socket){
 // usually this is where we try to connect to our DB.
 //server.listen(process.env.PORT || 8000)
 
-server.listen(2020, function(){
+server.listen(8000, function(){
     console.log(`listening on http://localhost:8000`);
   });
 console.log(process.env.PORT);
