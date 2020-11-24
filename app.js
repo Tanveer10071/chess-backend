@@ -1,9 +1,13 @@
 const express = require('express')
-const http = require('http')
+const https = require('https')
 const socketio = require('socket.io')
 const gameLogic = require('./game-logic')
 const app = express()
-
+var fs = require('fs');
+var options = {
+  key: fs.readFileSync('./ssl/file.pem'),
+  cert: fs.readFileSync('./ssl/file.crt')
+};
 /**
  * Backend flow:
  * - check to see if the game ID encoded in the URL belongs to a valid game session in progress. 
@@ -14,7 +18,7 @@ const app = express()
  */
 
 
-const server = http.createServer(app)
+const server = https.createServer(options,app)
 const io = socketio(server)
 
 // get the gameID encoded in the URL. 
@@ -36,7 +40,7 @@ io.on('connection', function(socket){
 // usually this is where we try to connect to our DB.
 //server.listen(process.env.PORT || 8000)
 
-server.listen(8000, function(){
-    console.log(`listening on http://localhost:8000`);
+server.listen(8443, function(){
+    console.log(`listening on http://localhost:8443`);
   });
 console.log(process.env.PORT);
